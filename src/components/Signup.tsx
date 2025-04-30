@@ -5,6 +5,7 @@ interface Props {
     email: string;
     username: string;
     password: string;
+    balance: number;
   }) => void;
   goToLogin: () => void;
   showNotification: (msg: string, type: "success" | "error") => void;
@@ -15,6 +16,7 @@ const Signup: React.FC<Props> = ({ onSignup, goToLogin, showNotification }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const balance = 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const Signup: React.FC<Props> = ({ onSignup, goToLogin, showNotification }) => {
     } else if (password !== confirm) {
       showNotification("كلمتا المرور غير متطابقتين.", "error");
     } else {
-      onSignup({ email, username, password });
+      onSignup({ email, username, password, balance });
     }
   };
 

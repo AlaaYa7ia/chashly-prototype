@@ -4,11 +4,13 @@ interface User {
   email: string;
   username: string;
   password: string;
+  balance: number;
 }
 
 interface Props {
-  balance: number;
-  setBalance: (val: number) => void;
+  // balance: number;
+  // setBalance: (val: number) => void;
+  setUsers: (updatedUsers: User[]) => void;
   currentUser: User;
   users: User[];
   goBack: () => void;
@@ -18,8 +20,9 @@ interface Props {
 }
 
 const Transfer: React.FC<Props> = ({
-  balance,
-  setBalance,
+  // balance,
+  // setBalance,
+  setUsers,
   currentUser,
   users,
   goBack,
@@ -39,7 +42,6 @@ const Transfer: React.FC<Props> = ({
 
     if (recipient === currentUser.username) {
       showNotification("لا يمكنك تحويل رصيد لنفسك", "error");
-
       return;
     }
 
@@ -49,12 +51,24 @@ const Transfer: React.FC<Props> = ({
       return;
     }
 
-    if (num > balance) {
+    if (num > currentUser.balance) {
       showNotification("الرصيد غير كافٍ", "error");
       return;
     }
 
-    setBalance(balance - num);
+    const updatedUsers = users.map((user) => {
+      if (user.username === currentUser.username) {
+        return { ...user, balance: user.balance - parseInt(amount) };
+      }
+      if (user.username === recipient) {
+        return { ...user, balance: user.balance + parseInt(amount) };
+      }
+      return user;
+    });
+
+    setUsers(updatedUsers);
+    //setBalance((prev) => prev - amount);
+
     showNotification(`تم تحويل ${num} كاشلي إلى ${recipient}`, "success");
     setRecipient("");
     setAmount("");

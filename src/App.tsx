@@ -9,6 +9,7 @@ interface User {
   email: string;
   username: string;
   password: string;
+  balance: number;
 }
 
 const App: React.FC = () => {
@@ -38,7 +39,7 @@ const App: React.FC = () => {
 
   const [balance, setBalance] = useState<number>(() => {
     const stored = localStorage.getItem("balance");
-    return stored ? Number(stored) : 150;
+    return stored ? Number(stored) : 0;
   });
 
   // Sync localStorage when states change
@@ -119,8 +120,11 @@ const App: React.FC = () => {
 
       {currentPage === "dashboard" && currentUser && (
         <Dashboard
-          balance={balance}
-          setBalance={setBalance}
+          // balance={balance}
+          // setBalance={setBalance}
+          setUsers={setUsers}
+          currentUser={currentUser}
+          users={users}
           goToTransfer={() => setCurrentPage("transfer")}
           logout={handleLogout}
           showNotification={showNotification}
@@ -129,8 +133,9 @@ const App: React.FC = () => {
 
       {currentPage === "transfer" && currentUser && (
         <Transfer
-          balance={balance}
-          setBalance={setBalance}
+          // balance={balance}
+          // setBalance={setBalance}
+          setUsers={setUsers}
           goBack={() => setCurrentPage("dashboard")}
           currentUser={currentUser}
           users={users}
@@ -140,56 +145,6 @@ const App: React.FC = () => {
       )}
     </div>
   );
-
-  // if (currentPage === "signup") {
-  //   return (
-  //     <Signup
-  //       onSignup={handleSignup}
-  //       goToLogin={() => setCurrentPage("login")}
-  //       showNotification={showNotification}
-  //     />
-  //   );
-  // }
-
-  // if (!currentUser) {
-  //   return (
-  //     <Login
-  //       onLogin={handleLogin}
-  //       goToSignup={() => setCurrentPage("signup")}
-  //       showNotification={showNotification}
-  //     />
-  //   );
-  // }
-
-  // return (
-  //   <div className="app">
-  //     <h1>محفظة كاشلي</h1>
-
-  //     {notification && (
-  //       <Notification message={notification.message} type={notification.type} />
-  //     )}
-
-  //     {currentPage === "dashboard" ? (
-  //       <Dashboard
-  //         balance={balance}
-  //         setBalance={setBalance}
-  //         goToTransfer={() => setCurrentPage("transfer")}
-  //         logout={handleLogout}
-  //         showNotification={showNotification}
-  //       />
-  //     ) : (
-  //       <Transfer
-  //         balance={balance}
-  //         setBalance={setBalance}
-  //         logout={handleLogout}
-  //         goBack={() => setCurrentPage("dashboard")}
-  //         currentUser={currentUser}
-  //         users={users}
-  //         showNotification={showNotification}
-  //       />
-  //     )}
-  //   </div>
-  // );
 };
 
 export default App;
