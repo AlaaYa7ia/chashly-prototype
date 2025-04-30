@@ -3,16 +3,17 @@ import React, { useState } from "react";
 interface Props {
   onLogin: (email: string, password: string) => void;
   goToSignup: () => void;
+  showNotification: (msg: string, type: "success" | "error") => void;
 }
 
-const Login: React.FC<Props> = ({ onLogin, goToSignup }) => {
+const Login: React.FC<Props> = ({ onLogin, goToSignup, showNotification }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      alert("يرجى تعبئة البريد وكلمة المرور");
+      showNotification("يرجى تعبئة البريد وكلمة المرور.", "error");
     } else {
       onLogin(email, password);
     }

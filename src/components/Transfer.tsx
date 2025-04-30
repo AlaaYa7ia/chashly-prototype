@@ -13,6 +13,8 @@ interface Props {
   users: User[];
   goBack: () => void;
   logout: () => void;
+
+  showNotification: (msg: string, type: "success" | "error") => void;
 }
 
 const Transfer: React.FC<Props> = ({
@@ -22,6 +24,7 @@ const Transfer: React.FC<Props> = ({
   users,
   goBack,
   logout,
+  showNotification,
 }) => {
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
@@ -30,28 +33,29 @@ const Transfer: React.FC<Props> = ({
     e.preventDefault();
     const num = Number(amount);
     if (isNaN(num) || num <= 0) {
-      alert("يرجى إدخال مبلغ صحيح");
+      showNotification("يرجى إدخال مبلغ صحيح", "error");
       return;
     }
 
     if (recipient === currentUser.username) {
-      alert("لا يمكنك تحويل رصيد لنفسك");
+      showNotification("لا يمكنك تحويل رصيد لنفسك", "error");
+
       return;
     }
 
     const userExists = users.some((u) => u.username === recipient);
     if (!userExists) {
-      alert("اسم المستخدم غير موجود");
+      showNotification("اسم المستخدم غير موجود", "error");
       return;
     }
 
     if (num > balance) {
-      alert("الرصيد غير كافٍ");
+      showNotification("الرصيد غير كافٍ", "error");
       return;
     }
 
     setBalance(balance - num);
-    alert(`تم تحويل ${num} كاشلي إلى ${recipient}`);
+    showNotification(`تم تحويل ${num} كاشلي إلى ${recipient}`, "success");
     setRecipient("");
     setAmount("");
     goBack();

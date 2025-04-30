@@ -7,9 +7,10 @@ interface Props {
     password: string;
   }) => void;
   goToLogin: () => void;
+  showNotification: (msg: string, type: "success" | "error") => void;
 }
 
-const Signup: React.FC<Props> = ({ onSignup, goToLogin }) => {
+const Signup: React.FC<Props> = ({ onSignup, goToLogin, showNotification }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,9 +19,9 @@ const Signup: React.FC<Props> = ({ onSignup, goToLogin }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !username || !password || !confirm) {
-      alert("يرجى تعبئة جميع الحقول");
+      showNotification("يرجى تعبئة جميع الحقول.", "error");
     } else if (password !== confirm) {
-      alert("كلمتا المرور غير متطابقتين");
+      showNotification("كلمتا المرور غير متطابقتين.", "error");
     } else {
       onSignup({ email, username, password });
     }

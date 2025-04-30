@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Notification from "./components/Notification";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
@@ -11,6 +12,16 @@ interface User {
 }
 
 const App: React.FC = () => {
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
+
+  const showNotification = (message: string, type: "success" | "error") => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
   const [users, setUsers] = useState<User[]>(() => {
     const stored = localStorage.getItem("users");
     return stored ? JSON.parse(stored) : [];
@@ -54,8 +65,9 @@ const App: React.FC = () => {
     if (found) {
       setCurrentUser(found);
       setCurrentPage("dashboard");
+      showNotification("تم تسجيل الدخول بنجاح.", "success");
     } else {
-      alert("بيانات الدخول غير صحيحة");
+      showNotification("يانات الدخول غير صحيحة", "error");
     }
   };
 
@@ -65,12 +77,13 @@ const App: React.FC = () => {
       (user) => user.username === newUser.username
     );
     if (emailExists) {
-      alert("البريد مستخدم مسبقاً");
+      showNotification("البريد مستخدم مسبقاً", "error");
     } else if (usernameExists) {
-      alert("اسم المستخدم مستخدم مسبقاً");
+      showNotification("اسم المستخدم مستخدم مسبقاً", "error");
     } else {
       setUsers([...users, newUser]);
-      alert("تم التسجيل بنجاح. يمكنك الآن تسجيل الدخول.");
+      showNotification("تم التسجيل بنجاح. يمكنك الآن تسجيل الدخول.", "success");
+
       setCurrentPage("login");
     }
   };
@@ -80,45 +93,103 @@ const App: React.FC = () => {
     setCurrentPage("login");
   };
 
-  if (currentPage === "signup") {
-    return (
-      <Signup
-        onSignup={handleSignup}
-        goToLogin={() => setCurrentPage("login")}
-      />
-    );
-  }
-
-  if (!currentUser) {
-    return (
-      <Login
-        onLogin={handleLogin}
-        goToSignup={() => setCurrentPage("signup")}
-      />
-    );
-  }
-
   return (
-    <div className="app">
-      {currentPage === "dashboard" ? (
+    <div className="App">
+      <h1>محفظة كاشلي</h1>
+
+      {notification && (
+        <Notification message={notification.message} type={notification.type} />
+      )}
+
+      {currentPage === "login" && (
+        <Login
+          onLogin={handleLogin}
+          goToSignup={() => setCurrentPage("signup")}
+          showNotification={showNotification}
+        />
+      )}
+
+      {currentPage === "signup" && (
+        <Signup
+          onSignup={handleSignup}
+          goToLogin={() => setCurrentPage("login")}
+          showNotification={showNotification}
+        />
+      )}
+
+      {currentPage === "dashboard" && currentUser && (
         <Dashboard
           balance={balance}
           setBalance={setBalance}
           goToTransfer={() => setCurrentPage("transfer")}
           logout={handleLogout}
+          showNotification={showNotification}
         />
-      ) : (
+      )}
+
+      {currentPage === "transfer" && currentUser && (
         <Transfer
           balance={balance}
           setBalance={setBalance}
-          logout={handleLogout}
           goBack={() => setCurrentPage("dashboard")}
           currentUser={currentUser}
           users={users}
+          logout={handleLogout}
+          showNotification={showNotification}
         />
       )}
     </div>
   );
+
+  // if (currentPage === "signup") {
+  //   return (
+  //     <Signup
+  //       onSignup={handleSignup}
+  //       goToLogin={() => setCurrentPage("login")}
+  //       showNotification={showNotification}
+  //     />
+  //   );
+  // }
+
+  // if (!currentUser) {
+  //   return (
+  //     <Login
+  //       onLogin={handleLogin}
+  //       goToSignup={() => setCurrentPage("signup")}
+  //       showNotification={showNotification}
+  //     />
+  //   );
+  // }
+
+  // return (
+  //   <div className="app">
+  //     <h1>محفظة كاشلي</h1>
+
+  //     {notification && (
+  //       <Notification message={notification.message} type={notification.type} />
+  //     )}
+
+  //     {currentPage === "dashboard" ? (
+  //       <Dashboard
+  //         balance={balance}
+  //         setBalance={setBalance}
+  //         goToTransfer={() => setCurrentPage("transfer")}
+  //         logout={handleLogout}
+  //         showNotification={showNotification}
+  //       />
+  //     ) : (
+  //       <Transfer
+  //         balance={balance}
+  //         setBalance={setBalance}
+  //         logout={handleLogout}
+  //         goBack={() => setCurrentPage("dashboard")}
+  //         currentUser={currentUser}
+  //         users={users}
+  //         showNotification={showNotification}
+  //       />
+  //     )}
+  //   </div>
+  // );
 };
 
 export default App;
