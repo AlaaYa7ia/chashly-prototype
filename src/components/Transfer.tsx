@@ -8,9 +8,8 @@ interface User {
 }
 
 interface Props {
-  // balance: number;
-  // setBalance: (val: number) => void;
   setUsers: (updatedUsers: User[]) => void;
+  setCurrentUser: (currentUser: User) => void;
   currentUser: User;
   users: User[];
   goBack: () => void;
@@ -20,10 +19,9 @@ interface Props {
 }
 
 const Transfer: React.FC<Props> = ({
-  // balance,
-  // setBalance,
   setUsers,
   currentUser,
+  setCurrentUser,
   users,
   goBack,
   logout,
@@ -58,6 +56,7 @@ const Transfer: React.FC<Props> = ({
 
     const updatedUsers = users.map((user) => {
       if (user.username === currentUser.username) {
+        setCurrentUser({ ...user, balance: user.balance - parseInt(amount) });
         return { ...user, balance: user.balance - parseInt(amount) };
       }
       if (user.username === recipient) {
@@ -67,7 +66,6 @@ const Transfer: React.FC<Props> = ({
     });
 
     setUsers(updatedUsers);
-    //setBalance((prev) => prev - amount);
 
     showNotification(`تم تحويل ${num} كاشلي إلى ${recipient}`, "success");
     setRecipient("");

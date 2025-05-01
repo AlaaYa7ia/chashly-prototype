@@ -37,11 +37,6 @@ const App: React.FC = () => {
     "login" | "signup" | "dashboard" | "transfer"
   >("login");
 
-  const [balance, setBalance] = useState<number>(() => {
-    const stored = localStorage.getItem("balance");
-    return stored ? Number(stored) : 0;
-  });
-
   // Sync localStorage when states change
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
@@ -54,10 +49,6 @@ const App: React.FC = () => {
       localStorage.removeItem("currentUser");
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    localStorage.setItem("balance", balance.toString());
-  }, [balance]);
 
   const handleLogin = (email: string, password: string) => {
     const found = users.find(
@@ -120,9 +111,8 @@ const App: React.FC = () => {
 
       {currentPage === "dashboard" && currentUser && (
         <Dashboard
-          // balance={balance}
-          // setBalance={setBalance}
           setUsers={setUsers}
+          setCurrentUser={setCurrentUser}
           currentUser={currentUser}
           users={users}
           goToTransfer={() => setCurrentPage("transfer")}
@@ -133,11 +123,10 @@ const App: React.FC = () => {
 
       {currentPage === "transfer" && currentUser && (
         <Transfer
-          // balance={balance}
-          // setBalance={setBalance}
           setUsers={setUsers}
           goBack={() => setCurrentPage("dashboard")}
           currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
           users={users}
           logout={handleLogout}
           showNotification={showNotification}

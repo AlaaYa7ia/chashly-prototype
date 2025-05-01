@@ -7,22 +7,20 @@ interface User {
   balance: number;
 }
 interface Props {
-  // balance: number;
   setUsers: (updatedUsers: User[]) => void;
   currentUser: User;
+  setCurrentUser: (currentUser: User) => void;
   users: User[];
-  //setBalance: (val: number) => void;
   goToTransfer: () => void;
   logout: () => void;
   showNotification: (msg: string, type: "success" | "error") => void;
 }
 
 const Dashboard: React.FC<Props> = ({
-  // balance,
   setUsers,
+  setCurrentUser,
   currentUser,
   users,
-  //setBalance,
   goToTransfer,
   logout,
   showNotification,
@@ -39,10 +37,9 @@ const Dashboard: React.FC<Props> = ({
     }
 
     if (action === "deposit") {
-      //setBalance(balance + num);
-
       const updatedUsers = users.map((user) => {
         if (user.username === currentUser.username) {
+          setCurrentUser({ ...user, balance: user.balance + num });
           return { ...user, balance: user.balance + num };
         }
         return user;
@@ -56,11 +53,12 @@ const Dashboard: React.FC<Props> = ({
         showNotification("الرصيد غير كافٍ", "error");
         return;
       }
-      //setBalance(balance - num);
       const updatedUsers = users.map((user) => {
         if (user.username === currentUser.username) {
+          setCurrentUser({ ...user, balance: user.balance - num });
           return { ...user, balance: user.balance - num };
         }
+        localStorage.setItem("currentUser", JSON.stringify(user));
         return user;
       });
 
