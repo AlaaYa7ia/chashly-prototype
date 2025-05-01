@@ -33,9 +33,14 @@ const App: React.FC = () => {
     return stored ? JSON.parse(stored) : null;
   });
 
-  const [currentPage, setCurrentPage] = useState<
-    "login" | "signup" | "dashboard" | "transfer"
-  >("login");
+  // const [currentPage, setCurrentPage] = useState<
+  //   "login" | "signup" | "dashboard" | "transfer"
+  // >("login");
+
+  const [currentPage, setCurrentPage] = useState(() => {
+    const savedPage = localStorage.getItem("currentPage");
+    return savedPage || "login";
+  });
 
   // Sync localStorage when states change
   useEffect(() => {
@@ -57,6 +62,7 @@ const App: React.FC = () => {
     if (found) {
       setCurrentUser(found);
       setCurrentPage("dashboard");
+      localStorage.setItem("currentPage", "dashboard");
       showNotification("تم تسجيل الدخول بنجاح.", "success");
     } else {
       showNotification("يانات الدخول غير صحيحة", "error");
@@ -77,12 +83,15 @@ const App: React.FC = () => {
       showNotification("تم التسجيل بنجاح. يمكنك الآن تسجيل الدخول.", "success");
 
       setCurrentPage("login");
+      localStorage.setItem("currentPage", "login");
     }
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
+    localStorage.removeItem("currentUser");
     setCurrentPage("login");
+    localStorage.setItem("currentPage", "login");
   };
 
   return (
