@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/chashly-prototype/static/css/main.93a9366a.css",
+    "main.js": "/chashly-prototype/static/js/main.1f47c847.js",
+    "index.html": "/chashly-prototype/index.html",
+    "main.93a9366a.css.map": "/chashly-prototype/static/css/main.93a9366a.css.map",
+    "main.1f47c847.js.map": "/chashly-prototype/static/js/main.1f47c847.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93a9366a.css",
+    "static/js/main.1f47c847.js"
+  ]
+}
