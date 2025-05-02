@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import Notification from "./Notification";
-
+import {
+  FaSignInAlt,
+  FaUserPlus,
+  FaMoneyBillWave,
+  FaArrowRight,
+  FaSignOutAlt,
+  FaMoneyBillWaveAlt,
+  FaRecycle,
+} from "react-icons/fa";
 interface User {
   email: string;
   username: string;
@@ -80,11 +88,8 @@ const Transfer: React.FC<Props> = ({
 
   return (
     <div>
-      {/* <button onClick={logout} style={{ width: "30%", background: "#991b1b" }}>
-        تسجيل الخروج
-      </button> */}
-      <button className="logout-button" onClick={logout}>
-        تسجيل الخروج
+      <button title="تسجيل الخروج" className="logout-button" onClick={logout}>
+        <FaSignOutAlt />
       </button>
 
       <div className="container">
@@ -110,6 +115,7 @@ const Transfer: React.FC<Props> = ({
           )}
           <div className="dashboard-buttons">
             <button type="submit" style={{ marginTop: "40px" }}>
+              <FaRecycle style={{ marginLeft: "8px" }} />
               تحويل
             </button>
             <button
@@ -117,6 +123,7 @@ const Transfer: React.FC<Props> = ({
               style={{ marginTop: "40px" }}
               onClick={goBack}
             >
+              <FaArrowRight style={{ marginLeft: "8px" }} />
               رجوع
             </button>
           </div>

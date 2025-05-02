@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaSignInAlt } from "react-icons/fa";
 import Notification from "./Notification";
 
 interface Props {
@@ -56,6 +57,7 @@ const Login: React.FC<Props> = ({
         <br />
 
         <button type="submit" style={{ marginTop: "40px" }}>
+          <FaSignInAlt style={{ marginLeft: "8px" }} />
           دخول
         </button>
       </form>

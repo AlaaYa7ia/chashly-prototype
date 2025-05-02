@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FaUserPlus } from "react-icons/fa";
+
 import Notification from "./Notification";
 
 interface Props {
@@ -78,6 +80,7 @@ const Signup: React.FC<Props> = ({
         )}
         <br />
         <button type="submit" style={{ marginTop: "40px" }}>
+          <FaUserPlus style={{ marginLeft: "8px" }} />
           تسجيل
         </button>
       </form>

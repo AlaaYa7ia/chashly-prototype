@@ -1,4 +1,18 @@
 import React, { useState } from "react";
+import {
+  FaSignInAlt,
+  FaUserPlus,
+  FaMoneyBillWave,
+  FaArrowRight,
+  FaSignOutAlt,
+  FaCheckCircle,
+  FaMoneyBillWaveAlt,
+  FaTimesCircle,
+  FaMoneyCheckAlt,
+  FaTradeFederation,
+  FaCcVisa,
+  FaRecycle,
+} from "react-icons/fa";
 import Notification from "./Notification";
 
 interface User {
@@ -78,11 +92,8 @@ const Dashboard: React.FC<Props> = ({
 
   return (
     <div>
-      {/* <button onClick={logout} style={{ width: "30%", background: "#991b1b" }}>
-        تسجيل الخروج
-      </button> */}
-      <button className="logout-button" onClick={logout}>
-        تسجيل الخروج
+      <button title="تسجيل الخروج" className="logout-button" onClick={logout}>
+        <FaSignOutAlt />
       </button>
 
       <div className="container">
@@ -107,7 +118,10 @@ const Dashboard: React.FC<Props> = ({
             )}
             <br></br>
             <div className="dashboard-buttons" style={{ marginTop: "40px" }}>
-              <button type="submit">تأكيد</button>
+              <button type="submit">
+                <FaCheckCircle style={{ marginLeft: "8px" }} />
+                تأكيد
+              </button>
               <button
                 type="button"
                 onClick={() => {
@@ -115,6 +129,7 @@ const Dashboard: React.FC<Props> = ({
                   setAmount("");
                 }}
               >
+                <FaTimesCircle style={{ marginLeft: "8px" }} />
                 إلغاء
               </button>
             </div>
@@ -129,14 +144,23 @@ const Dashboard: React.FC<Props> = ({
             )}
             <br></br>
             <div className="dashboard-buttons" style={{ marginTop: "40px" }}>
-              <button onClick={() => setAction("deposit")}>إيداع</button>
-              <button onClick={() => setAction("withdraw")}>سحب</button>
+              <button onClick={() => setAction("deposit")}>
+                <FaMoneyBillWave style={{ marginLeft: "8px" }} />
+                إيداع
+              </button>
+              <button onClick={() => setAction("withdraw")}>
+                <FaMoneyCheckAlt style={{ marginLeft: "8px" }} />
+                سحب
+              </button>
             </div>
           </>
         )}
 
         <div style={{ marginTop: "20px" }}>
-          <button onClick={goToTransfer}>تحويل</button>
+          <button onClick={goToTransfer}>
+            <FaRecycle style={{ marginLeft: "8px" }} />
+            تحويل
+          </button>
         </div>
       </div>
     </div>

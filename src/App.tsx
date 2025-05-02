@@ -145,6 +145,7 @@ const App: React.FC = () => {
           />
         )}
       </div>
+      <p>Cashly Simple Prototype @ By Alaa</p>
     </div>
   );
 };
