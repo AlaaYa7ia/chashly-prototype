@@ -61,17 +61,22 @@ const Signup: React.FC<Props> = ({ onSignup, goToLogin, showNotification }) => {
           onChange={(e) => setConfirm(e.target.value)}
         />
         <br />
-        <button type="submit">تسجيل</button>
-      </form>
-      <p>
-        لديك حساب؟{" "}
-        <button
-          onClick={goToLogin}
-          style={{ background: "none", border: "none", color: "blue" }}
-        >
-          تسجيل الدخول
+        <button type="submit" style={{ marginTop: "40px" }}>
+          تسجيل
         </button>
-      </p>
+      </form>
+      <p>لديك حساب؟ </p>
+      <button
+        onClick={goToLogin}
+        style={{
+          background: "none",
+          border: "none",
+          color: "#9b96f4",
+          margin: "0%",
+        }}
+      >
+        تسجيل الدخول
+      </button>
     </div>
   );
 };

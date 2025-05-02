@@ -1,27 +1,105 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e8edf5;
+  color: #2a2a3c;
   direction: rtl;
-  text-align: center;
 }
 
-.container {
-  background: white;
-  padding: 30px;
+.App {
+  max-width: 400px;
   margin: 50px auto;
-  width: 300px;
-  box-shadow: 0 0 10px #ccc;
-  border-radius: 10px;
+  background-color: #f3f6fa;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.header {
+  display: flex;
+  flex-direction: column; /* ← بدل column */
+  justify-content: space-between;
+  align-items: center;
+  color: #2a2a3c;
+  padding: 35px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin-bottom: 10px;
+.header h1 {
+  margin: 0;
+  font-size: 40px;
+}
+
+.logout-button {
+  background-color: #991b1b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 20%;
+}
+
+.logout-button:hover {
+  background-color: rgb(185, 50, 50);
+}
+
+input,
+button {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #e4e6e7;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 button {
-  padding: 10px 15px;
-  margin: 5px;
+  background-color: #9b96f4;
+  color: white;
+  border: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #6e6baf;
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.notification {
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  max-width: fit-content;
+  position: fixed;
+}
+
+.dashboard-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.desplay-flex {
+  display: flex;
+}
+
+p {
+  color: #2a2a3c;
+  text-align: center;
+  margin-bottom: 0%;
 }

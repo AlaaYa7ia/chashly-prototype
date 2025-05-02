@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Notification from "./components/Notification";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
@@ -95,52 +94,59 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1>محفظة كاشلي</h1>
+    <div>
+      <div className="header">
+        <h1>محفظة كاشلي</h1>
+      </div>
+      <div className="App">
+        {/* {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+          />
+        )} */}
 
-      {notification && (
-        <Notification message={notification.message} type={notification.type} />
-      )}
+        {currentPage === "login" && (
+          <Login
+            onLogin={handleLogin}
+            goToSignup={() => setCurrentPage("signup")}
+            showNotification={showNotification}
+            notification={notification}
+          />
+        )}
 
-      {currentPage === "login" && (
-        <Login
-          onLogin={handleLogin}
-          goToSignup={() => setCurrentPage("signup")}
-          showNotification={showNotification}
-        />
-      )}
+        {currentPage === "signup" && (
+          <Signup
+            onSignup={handleSignup}
+            goToLogin={() => setCurrentPage("login")}
+            showNotification={showNotification}
+          />
+        )}
 
-      {currentPage === "signup" && (
-        <Signup
-          onSignup={handleSignup}
-          goToLogin={() => setCurrentPage("login")}
-          showNotification={showNotification}
-        />
-      )}
+        {currentPage === "dashboard" && currentUser && (
+          <Dashboard
+            setUsers={setUsers}
+            setCurrentUser={setCurrentUser}
+            currentUser={currentUser}
+            users={users}
+            goToTransfer={() => setCurrentPage("transfer")}
+            logout={handleLogout}
+            showNotification={showNotification}
+          />
+        )}
 
-      {currentPage === "dashboard" && currentUser && (
-        <Dashboard
-          setUsers={setUsers}
-          setCurrentUser={setCurrentUser}
-          currentUser={currentUser}
-          users={users}
-          goToTransfer={() => setCurrentPage("transfer")}
-          logout={handleLogout}
-          showNotification={showNotification}
-        />
-      )}
-
-      {currentPage === "transfer" && currentUser && (
-        <Transfer
-          setUsers={setUsers}
-          goBack={() => setCurrentPage("dashboard")}
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-          users={users}
-          logout={handleLogout}
-          showNotification={showNotification}
-        />
-      )}
+        {currentPage === "transfer" && currentUser && (
+          <Transfer
+            setUsers={setUsers}
+            goBack={() => setCurrentPage("dashboard")}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            users={users}
+            logout={handleLogout}
+            showNotification={showNotification}
+          />
+        )}
+      </div>
     </div>
   );
 };

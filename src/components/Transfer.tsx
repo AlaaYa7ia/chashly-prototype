@@ -74,32 +74,37 @@ const Transfer: React.FC<Props> = ({
   };
 
   return (
-    <div className="container">
-      <button
-        onClick={logout}
-        style={{ marginLeft: "10px", background: "red", color: "white" }}
-      >
+    <div>
+      {/* <button onClick={logout} style={{ width: "30%", background: "#991b1b" }}>
+        تسجيل الخروج
+      </button> */}
+      <button className="logout-button" onClick={logout}>
         تسجيل الخروج
       </button>
-      <h2>تحويل مبلغ</h2>
-      <form onSubmit={handleTransfer}>
-        <input
-          type="text"
-          placeholder="اسم المستلم"
-          value={recipient}
-          onChange={(e) => setRecipient(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="المبلغ"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <button type="submit">تحويل</button>
-        <button type="button" onClick={goBack}>
-          رجوع
-        </button>
-      </form>
+
+      <div className="container">
+        <h2>تحويل مبلغ</h2>
+        <form onSubmit={handleTransfer}>
+          <input
+            type="text"
+            placeholder="اسم المستلم"
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="المبلغ"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <div className="dashboard-buttons">
+            <button type="submit">تحويل</button>
+            <button type="button" onClick={goBack}>
+              رجوع
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

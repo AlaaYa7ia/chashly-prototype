@@ -1,12 +1,22 @@
 import React, { useState } from "react";
+import Notification from "./Notification";
 
 interface Props {
   onLogin: (email: string, password: string) => void;
   goToSignup: () => void;
   showNotification: (msg: string, type: "success" | "error") => void;
+  notification: {
+    message: string;
+    type: "success" | "error";
+  } | null;
 }
 
-const Login: React.FC<Props> = ({ onLogin, goToSignup, showNotification }) => {
+const Login: React.FC<Props> = ({
+  onLogin,
+  goToSignup,
+  showNotification,
+  notification,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -36,18 +46,31 @@ const Login: React.FC<Props> = ({ onLogin, goToSignup, showNotification }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+          />
+        )}
         <br />
-        <button type="submit">دخول</button>
-      </form>
-      <p>
-        ليس لديك حساب؟{" "}
-        <button
-          onClick={goToSignup}
-          style={{ background: "none", border: "none", color: "blue" }}
-        >
-          إنشاء حساب
+
+        <button type="submit" style={{ marginTop: "40px" }}>
+          دخول
         </button>
-      </p>
+      </form>
+      <p>ليس لديك حساب؟ </p>
+      <button
+        onClick={goToSignup}
+        style={{
+          background: "none",
+          border: "none",
+          color: "#9b96f4",
+          margin: "0%",
+        }}
+      >
+        إنشاء حساب
+      </button>
     </div>
   );
 };

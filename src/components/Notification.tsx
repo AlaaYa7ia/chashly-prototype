@@ -11,13 +11,10 @@ const Notification: React.FC<Props> = ({ message, type }) => {
 
   return (
     <div
+      className="notification"
       style={{
-        padding: "10px",
-        margin: "10px 0",
-        borderRadius: "5px",
-        backgroundColor: type === "success" ? "#d4edda" : "#f8d7da",
-        color: type === "success" ? "#155724" : "#721c24",
-        border: `1px solid ${type === "success" ? "#c3e6cb" : "#f5c6cb"}`,
+        backgroundColor: type === "success" ? "#d1fae5" : "#fee2e2",
+        color: type === "success" ? "#065f46" : "#991b1b",
       }}
     >
       {message}

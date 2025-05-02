@@ -71,51 +71,51 @@ const Dashboard: React.FC<Props> = ({
   };
 
   return (
-    <div className="container">
-      <button
-        onClick={logout}
-        style={{ marginLeft: "10px", background: "red", color: "white" }}
-      >
+    <div>
+      {/* <button onClick={logout} style={{ width: "30%", background: "#991b1b" }}>
+        تسجيل الخروج
+      </button> */}
+      <button className="logout-button" onClick={logout}>
         تسجيل الخروج
       </button>
-      <h2>لوحة التحكم</h2>
-      <p>
-        الرصيد: <strong>{currentUser.balance} كاشلي</strong>
-      </p>
 
-      {action ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="number"
-            placeholder="أدخل المبلغ"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-          <button type="submit">تأكيد</button>
-          <button
-            type="button"
-            onClick={() => {
-              setAction(null);
-              setAmount("");
-            }}
-          >
-            إلغاء
-          </button>
-        </form>
-      ) : (
-        <>
-          <button onClick={() => setAction("deposit")}>إيداع</button>
-          <button
-            onClick={() => setAction("withdraw")}
-            style={{ marginLeft: "10px" }}
-          >
-            سحب
-          </button>
-        </>
-      )}
+      <div className="container">
+        <h2>لوحة التحكم</h2>
+        <p>
+          الرصيد: <strong>{currentUser.balance} كاشلي</strong>
+        </p>
 
-      <div style={{ marginTop: "20px" }}>
-        <button onClick={goToTransfer}>تحويل</button>
+        {action ? (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="number"
+              placeholder="أدخل المبلغ"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <button type="submit">تأكيد</button>
+            <button
+              type="button"
+              onClick={() => {
+                setAction(null);
+                setAmount("");
+              }}
+            >
+              إلغاء
+            </button>
+          </form>
+        ) : (
+          <>
+            <div className="dashboard-buttons">
+              <button onClick={() => setAction("deposit")}>إيداع</button>
+              <button onClick={() => setAction("withdraw")}>سحب</button>
+            </div>
+          </>
+        )}
+
+        <div style={{ marginTop: "20px" }}>
+          <button onClick={goToTransfer}>تحويل</button>
+        </div>
       </div>
     </div>
   );
