@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Notification from "./Notification";
 
 interface User {
   email: string;
@@ -14,8 +15,11 @@ interface Props {
   users: User[];
   goBack: () => void;
   logout: () => void;
-
   showNotification: (msg: string, type: "success" | "error") => void;
+  notification: {
+    message: string;
+    type: "success" | "error";
+  } | null;
 }
 
 const Transfer: React.FC<Props> = ({
@@ -26,6 +30,7 @@ const Transfer: React.FC<Props> = ({
   goBack,
   logout,
   showNotification,
+  notification,
 }) => {
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
@@ -97,9 +102,21 @@ const Transfer: React.FC<Props> = ({
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
+          {notification && (
+            <Notification
+              message={notification.message}
+              type={notification.type}
+            />
+          )}
           <div className="dashboard-buttons">
-            <button type="submit">تحويل</button>
-            <button type="button" onClick={goBack}>
+            <button type="submit" style={{ marginTop: "40px" }}>
+              تحويل
+            </button>
+            <button
+              type="button"
+              style={{ marginTop: "40px" }}
+              onClick={goBack}
+            >
               رجوع
             </button>
           </div>

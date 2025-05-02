@@ -32,10 +32,6 @@ const App: React.FC = () => {
     return stored ? JSON.parse(stored) : null;
   });
 
-  // const [currentPage, setCurrentPage] = useState<
-  //   "login" | "signup" | "dashboard" | "transfer"
-  // >("login");
-
   const [currentPage, setCurrentPage] = useState(() => {
     const savedPage = localStorage.getItem("currentPage");
     return savedPage || "login";
@@ -62,7 +58,6 @@ const App: React.FC = () => {
       setCurrentUser(found);
       setCurrentPage("dashboard");
       localStorage.setItem("currentPage", "dashboard");
-      showNotification("تم تسجيل الدخول بنجاح.", "success");
     } else {
       showNotification("يانات الدخول غير صحيحة", "error");
     }
@@ -120,6 +115,7 @@ const App: React.FC = () => {
             onSignup={handleSignup}
             goToLogin={() => setCurrentPage("login")}
             showNotification={showNotification}
+            notification={notification}
           />
         )}
 
@@ -132,6 +128,7 @@ const App: React.FC = () => {
             goToTransfer={() => setCurrentPage("transfer")}
             logout={handleLogout}
             showNotification={showNotification}
+            notification={notification}
           />
         )}
 
@@ -144,6 +141,7 @@ const App: React.FC = () => {
             users={users}
             logout={handleLogout}
             showNotification={showNotification}
+            notification={notification}
           />
         )}
       </div>

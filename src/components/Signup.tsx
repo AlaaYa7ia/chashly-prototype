@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Notification from "./Notification";
 
 interface Props {
   onSignup: (user: {
@@ -9,9 +10,18 @@ interface Props {
   }) => void;
   goToLogin: () => void;
   showNotification: (msg: string, type: "success" | "error") => void;
+  notification: {
+    message: string;
+    type: "success" | "error";
+  } | null;
 }
 
-const Signup: React.FC<Props> = ({ onSignup, goToLogin, showNotification }) => {
+const Signup: React.FC<Props> = ({
+  onSignup,
+  goToLogin,
+  showNotification,
+  notification,
+}) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -60,6 +70,12 @@ const Signup: React.FC<Props> = ({ onSignup, goToLogin, showNotification }) => {
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
         />
+        {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+          />
+        )}
         <br />
         <button type="submit" style={{ marginTop: "40px" }}>
           تسجيل

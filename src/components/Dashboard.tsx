@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Notification from "./Notification";
 
 interface User {
   email: string;
@@ -14,6 +15,10 @@ interface Props {
   goToTransfer: () => void;
   logout: () => void;
   showNotification: (msg: string, type: "success" | "error") => void;
+  notification: {
+    message: string;
+    type: "success" | "error";
+  } | null;
 }
 
 const Dashboard: React.FC<Props> = ({
@@ -24,6 +29,7 @@ const Dashboard: React.FC<Props> = ({
   goToTransfer,
   logout,
   showNotification,
+  notification,
 }) => {
   const [amount, setAmount] = useState("");
   const [action, setAction] = useState<"deposit" | "withdraw" | null>(null);
@@ -93,20 +99,36 @@ const Dashboard: React.FC<Props> = ({
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-            <button type="submit">تأكيد</button>
-            <button
-              type="button"
-              onClick={() => {
-                setAction(null);
-                setAmount("");
-              }}
-            >
-              إلغاء
-            </button>
+            {notification && (
+              <Notification
+                message={notification.message}
+                type={notification.type}
+              />
+            )}
+            <br></br>
+            <div className="dashboard-buttons" style={{ marginTop: "40px" }}>
+              <button type="submit">تأكيد</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setAction(null);
+                  setAmount("");
+                }}
+              >
+                إلغاء
+              </button>
+            </div>
           </form>
         ) : (
           <>
-            <div className="dashboard-buttons">
+            {notification && (
+              <Notification
+                message={notification.message}
+                type={notification.type}
+              />
+            )}
+            <br></br>
+            <div className="dashboard-buttons" style={{ marginTop: "40px" }}>
               <button onClick={() => setAction("deposit")}>إيداع</button>
               <button onClick={() => setAction("withdraw")}>سحب</button>
             </div>
